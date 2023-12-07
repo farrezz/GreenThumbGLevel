@@ -47,12 +47,13 @@ namespace GreenThumbGLevel
             }
             else
             {
-                Instruction instruction = new();
-                {
 
+                //skapa en ny skötselråd
+                Instruction instruction = new()
+                {  
+                    Description = plantCare,
                 };
-
-                // Skapa en ny Plant
+                //Skapa en ny Plant
                 Plant plant = new()
                 {
                     PlantName = plantName,
@@ -61,15 +62,19 @@ namespace GreenThumbGLevel
                 };
 
                 // Lägger till den nya plantan till databasen
-
                 using (GreenThumbDbContext context = new())
-                {
-                    //Kolla om det redan finns eller // messagebox
-                    if (plant != null)
+
+                { //Kolla om det redan finns eller // messagebox
+                    Plant? existingPlant = context.Plants.FirstOrDefault(p => p.PlantName == plant.PlantName);
+                    if (existingPlant == null)
                     {
                         context.Plants.Add(plant);
-                        context.SaveChanges();
 
+                        //context.SaveChanges();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"A plant with the name '{plant.PlantName}' already exists.");
                     }
 
                 }

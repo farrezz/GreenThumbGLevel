@@ -37,6 +37,7 @@ namespace GreenThumbGLevel
 
         private void btnDetails_Click(object sender, RoutedEventArgs e)
         {
+            //ERROR
             ListViewItem selectedItem = (ListViewItem)lstPlantView.SelectedItem;
 
             if (selectedItem == null)
@@ -45,17 +46,19 @@ namespace GreenThumbGLevel
             }
             else
             {
-                Plant plant = (Plant)selectedItem.Tag;
 
-                PlantDetailWindow plantDetailsWindow = new(plant);
-                plantDetailsWindow.Show();
-                Close();
 
+                        //PlantDetailWindow plantDetailsWindow = new(plant);
+                        //plantDetailsWindow.Show();
+                        //Close();
+   
             }
         }
 
         private void TxtSearchbar_TextChanged(object sender, TextChangedEventArgs e)
         {
+
+            //FILTERAR i listviewn och inte i textbox
             //När användaren skriver i textrutan
             string searchBox = TxtSearchbar.Text.ToUpper();
 
@@ -64,6 +67,7 @@ namespace GreenThumbGLevel
                 //Generic Repository
                 //GreenThumbRepository<Plant> plants = new(context);
 
+                //plant repository
                 Repository plants = new(context);
 
                 var GetAllPlants = plants.GetAll();
@@ -102,6 +106,8 @@ namespace GreenThumbGLevel
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+
+            //ERROR 
             ListViewItem selectedItem = (ListViewItem)lstPlantView.SelectedItem;
 
             if (selectedItem == null)
@@ -115,8 +121,9 @@ namespace GreenThumbGLevel
                     Repository plants = new(context);
 
                     plants.Delete(selectedItem.Name);
-                    
+                   
                     lstPlantView.Items.Remove(selectedItem);
+
 
                 }
             }

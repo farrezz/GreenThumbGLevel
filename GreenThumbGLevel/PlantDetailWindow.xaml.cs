@@ -23,6 +23,19 @@ namespace GreenThumbGLevel
         public PlantDetailWindow(Plant plant)
         {
             InitializeComponent();
+
+            txtPlantName.Text = plant.PlantName;
+            //txtPlantCare.Text = instructions.Description;
+            txtPlantDescription.Text = plant.PlantDescription;
+            txtPlantOrigin.Text = plant.PlantOrigin;
+
+        }
+
+        private void BtnAddReturn_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new();
+            mainWindow.Show();
+            Close();
         }
     }
 }
