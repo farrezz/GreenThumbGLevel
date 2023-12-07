@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreenThumbGLevel.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace GreenThumbGLevel
     /// </summary>
     public partial class PlantDetailWindow : Window
     {
-        public PlantDetailWindow()
+        public PlantDetailWindow(Plant plant)
         {
             InitializeComponent();
         }

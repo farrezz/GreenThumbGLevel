@@ -12,7 +12,8 @@ namespace GreenThumbGLevel.Models
     {
         [Key]
         public int InstructionId { get; set; }
-        public string? Description { get; set; }
+        //Skötselråd
+        public string? Description{ get; set; }
         [ForeignKey(nameof(Plant))]
         public string PlantName { get; set; } = null!;
         public Plant Plant { get; set; } = null!;
