@@ -42,7 +42,6 @@ namespace GreenThumbGLevel
             ListViewItem selectedItem = (ListViewItem)lstPlantView.SelectedItem;
             Plant plant = (Plant)selectedItem.Tag;
            
-
             if (plant == null)
             {
                 MessageBox.Show("Choose a plant from the list.", "Warning");
@@ -95,8 +94,8 @@ namespace GreenThumbGLevel
             {
                 lstPlantView.Items.Clear();
                 //Distinct som tillåter att visa plants utan att upprepa alla i databasen.
-                var plants = context.Plants.Distinct().ToList();
-                var instructions = context.Instructions.ToList();
+                var plants = context.Plants.Distinct().Include(a => a.Instruction).ToList();
+                //var instructions = context.Instructions.ToList();
                 foreach (var plant in plants)
                 {
                     ListViewItem item = new();

@@ -43,9 +43,9 @@ namespace GreenThumbGLevel
                     foreach (var instruction in plant.Instruction)
                     {
                         ListViewItem item = new();
-                        item.Tag = instruction.Plant;
+                        item.Tag = instruction;
                         item.Content= instruction.Description;
-                        lstPlantCare.Items.Add(item.Content);
+                        lstPlantCare.Items.Add(item);
                         
                     }
 

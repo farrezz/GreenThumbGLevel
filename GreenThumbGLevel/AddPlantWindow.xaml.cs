@@ -32,7 +32,7 @@ namespace GreenThumbGLevel
             string plantOrigin = txtPlantOrigin.Text;
             string plantCare = txtPlantCare.Text;
             string? plantDescription = txtPlantDescription.Text;
-            //List <string> plantInstruction= new();
+            List <Instruction> plantInstruction= new();
 
             if (plantName == "" && plantCare == "")
             {
@@ -44,6 +44,16 @@ namespace GreenThumbGLevel
             }
             else
             {
+                //Alternativt sätt att skriva  utan att behöva ha en lista i Plant plant = new();
+                //skapa en ny skötselråd
+                foreach (var instructions in lstInstructionView.Items)
+                {
+                    ListViewItem item = (ListViewItem) instructions;
+                    
+                    Instruction instruction =(Instruction)  item.Tag;
+                    plantInstruction.Add(instruction);
+
+                };
 
                 //Skapa en ny Plant
                 //En planta kan ha flera instruktioner. 
@@ -54,6 +64,7 @@ namespace GreenThumbGLevel
                     PlantName = plantName,
                     PlantDescription = plantDescription,
                     PlantOrigin = plantOrigin,
+                    Instruction = plantInstruction
                     //Instruction = new List<Instruction>()
                     //{
                     //    new Instruction()
@@ -63,19 +74,8 @@ namespace GreenThumbGLevel
                     //}
                 };
 
-                //Alternativt sätt att skriva  utan att behöva ha en lista i Plant plant = new();
-                //skapa en ny skötselråd
-                foreach (var instructions in lstInstructionView.Items)
-                {
-                    Instruction instruction = new()
-                    {
-                        Description = plantCare,
-                    };
 
-                    instruction.Plant = plant;
-                    plant.Instruction.Add(instruction);
-
-                };
+ 
 
 
                 // Lägger till den nya plantan till databasen
@@ -116,8 +116,16 @@ namespace GreenThumbGLevel
         private void BtnAddInstruction_Click(object sender, RoutedEventArgs e)
         {
             string instructions  = txtPlantCare.Text;
-            lstInstructionView.Items.Add(instructions);
-          
+            Instruction instruction = new()
+            {
+                Description = instructions,
+            };
+            //Objekt
+            ListViewItem item = new ListViewItem();
+            item.Tag = instruction;
+            item.Content = instruction.Description;
+            lstInstructionView.Items.Add(item);
+
             txtPlantCare.Text = "";
         }
     }
