@@ -31,7 +31,8 @@
         <TextBox x:Name="txtPlantName" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Width="300" Height="25" HorizontalAlignment="Left" VerticalAlignment="top"/>
 
         <Label Content="Care instruction" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>
-        <TextBox x:Name="txtPlantCare" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Width="300" Height="25" HorizontalAlignment="Left" VerticalAlignment="top"/>
+        <TextBox x:Name="txtPlantCare" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Width="150" Height="25" HorizontalAlignment="Left" VerticalAlignment="top"/>
+        <ListView x:Name="lstInstructionView" FontSize="7" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3"  Width="150" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top"/>
 
         <Label Content="Plant origin" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>
         <TextBox x:Name="txtPlantOrigin" Grid.Row="2" Grid.Column="5" Width="100" Height="25" HorizontalAlignment="Left" VerticalAlignment="top"/>
@@ -39,10 +40,14 @@
         <Label Content="Description" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>
         <TextBox x:Name="txtPlantDescription" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Width="300" Height="40" HorizontalAlignment="Left" VerticalAlignment="top"/>
 
-        <Button x:Name="BtnAddPlant" 
-              Content="Add" 
+        <Button x:Name="BtnSavepPlant" 
+              Content="Save" 
               HorizontalAlignment="Right" 
               Width="60" FontSize="8" Grid.Column="4" Grid.Row="4" Margin="0,63,0,0" Click="BtnAddPlant_Click"/>
+        <Button x:Name="BtnAddInstruction" 
+      Content="Add" 
+      HorizontalAlignment="Center" VerticalAlignment="Center" 
+      Width="60" FontSize="8" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Click="BtnAddInstruction_Click"/>
 
         <Button x:Name="BtnAddReturn" 
           Content="Home" 

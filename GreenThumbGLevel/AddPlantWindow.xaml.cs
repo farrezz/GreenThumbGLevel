@@ -32,6 +32,7 @@ namespace GreenThumbGLevel
             string plantOrigin = txtPlantOrigin.Text;
             string plantCare = txtPlantCare.Text;
             string? plantDescription = txtPlantDescription.Text;
+            List <string> plantInstruction= new();
 
             if (plantName == "" && plantCare == "")
             {
@@ -41,12 +42,27 @@ namespace GreenThumbGLevel
             {
                 MessageBox.Show("Please add a name to your plant", "Warning!");
             }
-            else if (plantCare == "")
-            {
-                MessageBox.Show("Please add information about care instruction", "Warning!");
-            }
+            //else if (plantCare == "")
+            //{
+            //    MessageBox.Show("Please add information about care instruction", "Warning!");
+            //}
             else
             {
+
+                //Alternativt sätt att skriva  utan att behöva ha en lista i Plant plant = new();
+                //skapa en ny skötselråd
+                foreach (var instructions in lstInstructionView.Items)
+                {
+                    Instruction instruction = new()
+                    {
+                        Description = plantCare,
+                    };
+
+                    instruction.Plant = plant;
+                    plant.Instruction.Add(instruction);
+
+                }
+
                 //Skapa en ny Plant
                 //En planta kan ha flera instruktioner. 
                 //Instruction = new List<Instruction>() möjliggör att man kan lägga till i listan utan att behöva
@@ -56,34 +72,45 @@ namespace GreenThumbGLevel
                     PlantName = plantName,
                     PlantDescription = plantDescription,
                     PlantOrigin = plantOrigin,
-                    Instruction = new List<Instruction>()
-                    {
-                        new Instruction()
-                        {
-                            Description = plantCare
-                        }
-                    }
+                    //Instruction = new List<Instruction>()
+                    //{
+                    //    new Instruction()
+                    //    {
+                    //        Description = plantCare
+                    //    }
+                    //}
                 };
 
-                ////skapa en ny skötselråd
-                //Instruction instruction = new()
-                //{
-                //    Description = plantCare,
-                //    Pnat
-                //};
+                foreach (var instructions in lstInstructionView.Items)
+                {
+                    Instruction instruction = new()
+                    {
+                        Description = plantCare,
+                    };
+
+                    instruction.Plant = plant;
+                    plant.Instruction.Add(instruction);
+
+                }
+
 
                 // Lägger till den nya plantan till databasen
                 using (GreenThumbDbContext context = new())
 
                 { //Kollar om plantan finns i databasen. om inte, en ny planta skapas// messagebox
+                    //FirstOrDefault metoden kollar första namte
                     Plant? existingPlant = context.Plants.FirstOrDefault(p => p.PlantName == plant.PlantName);
                     if (existingPlant == null)
                     {
                         context.Plants.Add(plant);
                         //Lägger till skötselråd.
-                        //context.Instructions.Add(instruction);
+                        //context.Instructions.Add(plantCare);
                         MessageBox.Show("A plant has been successfully added to list!", "Successful");
                         context.SaveChanges();
+
+                        MainWindow mainWindow = new();
+                        mainWindow.Show();
+                        Close();
                     }
                     else
                     {
@@ -100,6 +127,13 @@ namespace GreenThumbGLevel
             MainWindow mainWindow = new();
             mainWindow.Show();
             Close();
+        }
+
+        private void BtnAddInstruction_Click(object sender, RoutedEventArgs e)
+        {
+            string instructions  = txtPlantCare.Text;
+            lstInstructionView.Items.Add(instructions);
+            txtPlantCare.Text = "";
         }
     }
 }

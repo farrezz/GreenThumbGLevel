@@ -1,5 +1,6 @@
 ﻿using GreenThumbGLevel.Database;
 using GreenThumbGLevel.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,23 +31,25 @@ namespace GreenThumbGLevel
             {
                 Repository plantDetails = new(context);
 
-                var plantDetail = plantDetails.GetbyName(plant.PlantName);
-              
+                //var plantDetail = plantDetails.GetbyName(plant.PlantName);
+                //var plants = context.Plants.Distinct().Include(a => a.Instruction);
+
+                txtPlantName.Text = plant.PlantName;
+                txtPlantDescription.Text = plant.PlantDescription;
+                txtPlantOrigin.Text = plant.PlantOrigin;
 
                 if (plant != null)
                 {
-                    txtPlantName.Text = plant.PlantName;
-                    //lstPlantCare.Text = instructions.Description;
-                    txtPlantDescription.Text = plant.PlantDescription;
-                    txtPlantOrigin.Text = plant.PlantOrigin;
 
                     foreach (Instruction instruction in plant.Instruction)
                     {
                         ListViewItem item = new();
-                        item.Tag = instruction;
-                        item.Content = instruction.Description;
+                        item.Tag = instruction.Plant;
+                        item.Content= instruction.Description;
                         lstPlantCare.Items.Add(item);
+                        
                     }
+
 
                 }
             }

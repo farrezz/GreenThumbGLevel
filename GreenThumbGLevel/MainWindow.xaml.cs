@@ -38,9 +38,8 @@ namespace GreenThumbGLevel
 
         private void btnDetails_Click(object sender, RoutedEventArgs e)
         {
-            //ERROR
+ 
             ListViewItem selectedItem = (ListViewItem)lstPlantView.SelectedItem;
-
             Plant plant = (Plant)selectedItem.Tag;
            
 
