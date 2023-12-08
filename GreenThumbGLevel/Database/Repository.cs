@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GreenThumbGLevel.Database
 {
-    //e
+    //Repository för Plant
     class Repository 
     {
         private readonly GreenThumbDbContext _context;

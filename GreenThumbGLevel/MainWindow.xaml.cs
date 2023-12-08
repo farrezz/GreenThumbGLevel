@@ -14,6 +14,7 @@ using GreenThumbGLevel.Database;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.Numerics;
 
 namespace GreenThumbGLevel
 {
@@ -40,18 +41,21 @@ namespace GreenThumbGLevel
             //ERROR
             ListViewItem selectedItem = (ListViewItem)lstPlantView.SelectedItem;
 
-            if (selectedItem == null)
+            Plant plant = (Plant)selectedItem.Tag;
+           
+
+            if (plant == null)
             {
                 MessageBox.Show("Choose a plant from the list.", "Warning");
             }
             else
             {
 
+                PlantDetailWindow plantDetailWindow = new(plant);
+                plantDetailWindow.Show();
+                Close();
+           
 
-                        //PlantDetailWindow plantDetailsWindow = new(plant);
-                        //plantDetailsWindow.Show();
-                        //Close();
-   
             }
         }
 
@@ -86,46 +90,48 @@ namespace GreenThumbGLevel
             }
         }
 
-
         private void UpdateUi()
         {
             using (GreenThumbDbContext context = new())
             {
+                lstPlantView.Items.Clear();
                 //Distinct som tillåter att visa plants utan att upprepa alla i databasen.
                 var plants = context.Plants.Distinct().ToList();
-
+                var instruction = context.Instructions.Distinct().ToList();
+;
                 foreach (var plant in plants)
                 {
                     ListViewItem item = new();
                     item.Tag = plant;
-                    //Visar Plantans namn och ursprung
-                    lstPlantView.Items.Add($"{plant.PlantName}");
+                    item.Content = plant.PlantName;
+                    lstPlantView.Items.Add(item);
+                   
                 }
+
             }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
 
-            //ERROR 
             ListViewItem selectedItem = (ListViewItem)lstPlantView.SelectedItem;
 
-            if (selectedItem == null)
+            Plant plant = (Plant)selectedItem.Tag;
+            //ERROR 
+
+            if ( plant == null)
             {
                 MessageBox.Show("Choose a plant from the list to delete.", "Warning");
             }
             else
             {
-                using (GreenThumbDbContext context = new())
-                {
-                    Repository plants = new(context);
-
-                    plants.Delete(selectedItem.Name);
-                   
-                    lstPlantView.Items.Remove(selectedItem);
-
-
-                }
+                GreenThumbDbContext context = new();
+                GreenThumbRepository<Plant> removePlant = new(context);
+                removePlant.Delete(plant.PlantName);
+                context.SaveChanges();
+                UpdateUi();
+           
+                    //lstPlantView.Items.Remove(deletePlant);
             }
         }
     }

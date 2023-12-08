@@ -1,4 +1,5 @@
-﻿using GreenThumbGLevel.Models;
+﻿using GreenThumbGLevel.Database;
+using GreenThumbGLevel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,31 @@ namespace GreenThumbGLevel
         {
             InitializeComponent();
 
-            txtPlantName.Text = plant.PlantName;
-            //txtPlantCare.Text = instructions.Description;
-            txtPlantDescription.Text = plant.PlantDescription;
-            txtPlantOrigin.Text = plant.PlantOrigin;
 
+            using (GreenThumbDbContext context = new())
+            {
+                Repository plantDetails = new(context);
+
+                var plantDetail = plantDetails.GetbyName(plant.PlantName);
+              
+
+                if (plant != null)
+                {
+                    txtPlantName.Text = plant.PlantName;
+                    //lstPlantCare.Text = instructions.Description;
+                    txtPlantDescription.Text = plant.PlantDescription;
+                    txtPlantOrigin.Text = plant.PlantOrigin;
+
+                    foreach (Instruction instruction in plant.Instruction)
+                    {
+                        ListViewItem item = new();
+                        item.Tag = instruction;
+                        item.Content = instruction.Description;
+                        lstPlantCare.Items.Add(item);
+                    }
+
+                }
+            }
         }
 
         private void BtnAddReturn_Click(object sender, RoutedEventArgs e)
