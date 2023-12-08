@@ -29,24 +29,23 @@ namespace GreenThumbGLevel
 
             using (GreenThumbDbContext context = new())
             {
-                Repository plantDetails = new(context);
+                //Repository plantDetails = new(context);
 
                 //var plantDetail = plantDetails.GetbyName(plant.PlantName);
                 //var plants = context.Plants.Distinct().Include(a => a.Instruction);
 
-                txtPlantName.Text = plant.PlantName;
-                txtPlantDescription.Text = plant.PlantDescription;
-                txtPlantOrigin.Text = plant.PlantOrigin;
-
                 if (plant != null)
                 {
+                    txtPlantName.Text = plant.PlantName;
+                    txtPlantDescription.Text = plant.PlantDescription;
+                    txtPlantOrigin.Text = plant.PlantOrigin;
 
-                    foreach (Instruction instruction in plant.Instruction)
+                    foreach (var instruction in plant.Instruction)
                     {
                         ListViewItem item = new();
                         item.Tag = instruction.Plant;
                         item.Content= instruction.Description;
-                        lstPlantCare.Items.Add(item);
+                        lstPlantCare.Items.Add(item.Content);
                         
                     }
 

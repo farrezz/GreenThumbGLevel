@@ -32,7 +32,7 @@ namespace GreenThumbGLevel
             string plantOrigin = txtPlantOrigin.Text;
             string plantCare = txtPlantCare.Text;
             string? plantDescription = txtPlantDescription.Text;
-            List <string> plantInstruction= new();
+            //List <string> plantInstruction= new();
 
             if (plantName == "" && plantCare == "")
             {
@@ -42,26 +42,8 @@ namespace GreenThumbGLevel
             {
                 MessageBox.Show("Please add a name to your plant", "Warning!");
             }
-            //else if (plantCare == "")
-            //{
-            //    MessageBox.Show("Please add information about care instruction", "Warning!");
-            //}
             else
             {
-
-                //Alternativt sätt att skriva  utan att behöva ha en lista i Plant plant = new();
-                //skapa en ny skötselråd
-                foreach (var instructions in lstInstructionView.Items)
-                {
-                    Instruction instruction = new()
-                    {
-                        Description = plantCare,
-                    };
-
-                    instruction.Plant = plant;
-                    plant.Instruction.Add(instruction);
-
-                }
 
                 //Skapa en ny Plant
                 //En planta kan ha flera instruktioner. 
@@ -81,6 +63,8 @@ namespace GreenThumbGLevel
                     //}
                 };
 
+                //Alternativt sätt att skriva  utan att behöva ha en lista i Plant plant = new();
+                //skapa en ny skötselråd
                 foreach (var instructions in lstInstructionView.Items)
                 {
                     Instruction instruction = new()
@@ -91,14 +75,14 @@ namespace GreenThumbGLevel
                     instruction.Plant = plant;
                     plant.Instruction.Add(instruction);
 
-                }
+                };
 
 
                 // Lägger till den nya plantan till databasen
                 using (GreenThumbDbContext context = new())
 
-                { //Kollar om plantan finns i databasen. om inte, en ny planta skapas// messagebox
-                    //FirstOrDefault metoden kollar första namte
+                {   //Kollar om plantan finns i databasen. om inte, en ny planta skapas// messagebox
+                    
                     Plant? existingPlant = context.Plants.FirstOrDefault(p => p.PlantName == plant.PlantName);
                     if (existingPlant == null)
                     {
@@ -133,6 +117,7 @@ namespace GreenThumbGLevel
         {
             string instructions  = txtPlantCare.Text;
             lstInstructionView.Items.Add(instructions);
+          
             txtPlantCare.Text = "";
         }
     }

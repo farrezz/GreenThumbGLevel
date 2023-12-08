@@ -96,8 +96,7 @@ namespace GreenThumbGLevel
                 lstPlantView.Items.Clear();
                 //Distinct som tillåter att visa plants utan att upprepa alla i databasen.
                 var plants = context.Plants.Distinct().ToList();
-                var instruction = context.Instructions.Distinct().ToList();
-;
+                var instructions = context.Instructions.ToList();
                 foreach (var plant in plants)
                 {
                     ListViewItem item = new();
