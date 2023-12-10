@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace GreenThumbGLevel.Database
 {
     //Generic Repository
+    //Har Generic  repository för att testa
     internal class GreenThumbRepository <T> where T : class
     {
         private readonly GreenThumbDbContext _context;

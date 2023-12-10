@@ -68,7 +68,7 @@ namespace GreenThumbGLevel.Database
     });
 
             //Seedar Instruktioner till
-            //seedar utan instruktioner för Monstera för att kolla om 1-M fungerar som det ska.Därav har monstera inga instruktioner.
+            //seedar utan instruktioner för Monstera för att kolla om 1-M fungerar som det ska, därav har monstera inga instruktioner.
             modelBuilder.Entity<Instruction>().HasData(
                new Instruction()
                {

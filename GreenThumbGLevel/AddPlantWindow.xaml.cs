@@ -44,39 +44,26 @@ namespace GreenThumbGLevel
             }
             else
             {
-                //Alternativt sätt att skriva  utan att behöva ha en lista i Plant plant = new();
-                //skapa en ny skötselråd
+                //skapar för en ny skötselråd 
+                //Loppar igenom alla instruktioner som finns i ListView och lägger till
+                //i plantans insruktioenr.
                 foreach (var instructions in lstInstructionView.Items)
                 {
                     ListViewItem item = (ListViewItem) instructions;
                     
-                    Instruction instruction =(Instruction)  item.Tag;
+                    Instruction instruction = (Instruction) item.Tag;
                     plantInstruction.Add(instruction);
 
                 };
 
                 //Skapa en ny Plant
-                //En planta kan ha flera instruktioner. 
-                //Instruction = new List<Instruction>() möjliggör att man kan lägga till i listan utan att behöva
-                //skapa en ny kodblock av instruction.
                 Plant plant = new()
                 {
                     PlantName = plantName,
                     PlantDescription = plantDescription,
                     PlantOrigin = plantOrigin,
                     Instruction = plantInstruction
-                    //Instruction = new List<Instruction>()
-                    //{
-                    //    new Instruction()
-                    //    {
-                    //        Description = plantCare
-                    //    }
-                    //}
                 };
-
-
- 
-
 
                 // Lägger till den nya plantan till databasen
                 using (GreenThumbDbContext context = new())
@@ -87,8 +74,6 @@ namespace GreenThumbGLevel
                     if (existingPlant == null)
                     {
                         context.Plants.Add(plant);
-                        //Lägger till skötselråd.
-                        //context.Instructions.Add(plantCare);
                         MessageBox.Show("A plant has been successfully added to list!", "Successful");
                         context.SaveChanges();
 
@@ -115,13 +100,16 @@ namespace GreenThumbGLevel
 
         private void BtnAddInstruction_Click(object sender, RoutedEventArgs e)
         {
+            //användaren skriver in instruktioner och läggs i instrction listan
+            //som visas i ListViewn. 
+            //rutan nollställs när man lägger till.
             string instructions  = txtPlantCare.Text;
             Instruction instruction = new()
             {
                 Description = instructions,
             };
             //Objekt
-            ListViewItem item = new ListViewItem();
+            ListViewItem item = new();
             item.Tag = instruction;
             item.Content = instruction.Description;
             lstInstructionView.Items.Add(item);
